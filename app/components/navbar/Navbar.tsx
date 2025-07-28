@@ -1,8 +1,9 @@
 "use client";
 
 import Container from "../Container";
+import Categories from "./Categories";
 import Logo from "./Logo";
-
+import Search from "./Search";
 import UserMenu from "./UserMenu";
 import { SafeUser } from "@/app/types";
 
@@ -23,7 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                   </div>
                   <div className="flex-grow flex justify-center">
                      <div className="w-full max-w-[400px]">
-                      
+                        <Search />
                      </div>
                   </div>
                   <div className="flex-shrink-0">
@@ -32,7 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
                </div>
             </Container>
          </div>
-       
+         <Categories />
       </div>
    );
 };
