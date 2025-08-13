@@ -1,6 +1,7 @@
 import EmptyState from "../components/EmptyState";
 import ClientOnly from "../components/ClientOnly";
 import getCurrentUser from "../actions/getCurrentUser";
+import PropertiesClient from "./PropertiesClient";
 import getListings from "../actions/getListings";
 
 const PropertiesPage = async () => {
@@ -25,6 +26,12 @@ const PropertiesPage = async () => {
          </ClientOnly>
       );
    }
+
+   return (
+      <ClientOnly>
+         <PropertiesClient listings={listings} currentUser={currentUser} />
+      </ClientOnly>
+   );
 };
 
 export default PropertiesPage;
