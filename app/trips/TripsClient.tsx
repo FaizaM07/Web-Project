@@ -13,25 +13,21 @@ interface TripsClientProps {
    currentUser?: SafeUser | null;
 }
 
-const TripsClient: React.FC<TripsClientProps> = ({
-   reservations,
-   currentUser,
-}) => {
+const TripsClient: React.FC<TripsClientProps> = ({ reservations, currentUser }) => {
    const router = useRouter();
    const [deletingId, setDeletingId] = useState("");
 
    const onCancel = useCallback(
       (id: string) => {
          setDeletingId(id);
-
          axios
             .delete(`/api/reservations/${id}`)
             .then(() => {
-               toast.success("Reservation cancelled");
+               toast.success("Reservation Caceled");
                router.refresh();
             })
-            .catch(() => {
-               toast.error("Something went wrong.");
+            .catch((error) => {
+               toast.error(error?.response?.data?.error);
             })
             .finally(() => {
                setDeletingId("");
@@ -40,23 +36,14 @@ const TripsClient: React.FC<TripsClientProps> = ({
       [router]
    );
 
+   
+   const validReservations = reservations.filter(reservation => reservation.listing !== null);
+
    return (
       <Container>
          <Heading title="Trips" subtitle="Where you've been and where you're going" />
-         <div
-            className="
-            mt-10
-            grid 
-            grid-cols-1 
-            sm:grid-cols-2 
-            md:grid-cols-3 
-            lg:grid-cols-4 
-            xl:grid-cols-5 
-            2xl:grid-cols-6 
-            gap-8
-         "
-         >
-            {reservations.map((reservation) => (
+         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+            {validReservations.map((reservation) => (
                <ListingCard
                   key={reservation.id}
                   data={reservation.listing}
@@ -64,7 +51,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
                   actionId={reservation.id}
                   onAction={onCancel}
                   disabled={deletingId === reservation.id}
-                  actionLabel="Cancel reservation"
+                  actionLabel="Cancel Reservation"
                   currentUser={currentUser}
                />
             ))}
