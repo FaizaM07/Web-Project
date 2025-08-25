@@ -2,6 +2,7 @@ import getCurrentUser from "../actions/getCurrentUser";
 import getReservations from "../actions/getReservation";
 import ClientOnly from "../components/ClientOnly";
 import EmptyState from "../components/EmptyState";
+import TripsClient from "./TripsClient";
 
 const TripsPage = async () => {
    const currentUser = await getCurrentUser();
@@ -27,6 +28,27 @@ const TripsPage = async () => {
             </ClientOnly>
          );
       }
+
+      
+      const validReservations = reservations.filter(reservation => reservation.listing !== null);
+
+      if (validReservations.length === 0) {
+         return (
+            <ClientOnly>
+               <EmptyState
+                  title="No valid trips found"
+                  subTitle="Some of your trip listings may no longer be available"
+               />
+            </ClientOnly>
+         );
+      }
+
+
+      return (
+         <ClientOnly>
+            <TripsClient reservations={validReservations} currentUser={currentUser} />
+         </ClientOnly>
+      );
 
 
    } catch (error) {
