@@ -42,7 +42,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({ reservations, c
 
    return (
       <Container>
-         <Heading title="Reservations" subtitle="Bookings on your properties" />
+         <Heading title="My Guests" subtitle="People who have booked your properties" />
          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
             {validReservations.map((reservation) => (
                <ListingCard
@@ -52,7 +52,7 @@ const ReservationsClient: React.FC<ReservationsClientProps> = ({ reservations, c
                   actionId={reservation.id}
                   onAction={onCancel}
                   disabled={deletingId === reservation.id}
-                  actionLabel="Cancel guest reservation"
+                  actionLabel="Cancel guest"
                   currentUser={currentUser}
                />
             ))}

@@ -22,8 +22,8 @@ const TripsPage = async () => {
          return (
             <ClientOnly>
                <EmptyState
-                  title="No trips found"
-                  subTitle="Looks like you haven't reserved any trips."
+                  title="No bookings found"
+                  subTitle="Looks like you haven't made any bookings yet."
                />
             </ClientOnly>
          );
@@ -36,8 +36,8 @@ const TripsPage = async () => {
          return (
             <ClientOnly>
                <EmptyState
-                  title="No valid trips found"
-                  subTitle="Some of your trip listings may no longer be available"
+                  title="No valid bookings found"
+                  subTitle="Some of your booked properties may no longer be available"
                />
             </ClientOnly>
          );
@@ -57,7 +57,7 @@ const TripsPage = async () => {
          <ClientOnly>
             <EmptyState
                title="Something went wrong"
-               subTitle="Failed to load your trips. Please try again later."
+               subTitle="Failed to load your bookings. Please try again later."
             />
          </ClientOnly>
       );
