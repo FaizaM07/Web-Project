@@ -59,6 +59,23 @@ export const authOptions: AuthOptions = {
    session: {
       strategy: "jwt",
    },
+   callbacks: {
+      async signIn({ user, account, profile }) {
+         if (account?.provider === "google" || account?.provider === "github") {
+            return true;
+         }
+         return true;
+      },
+      async session({ session, token }) {
+         return session;
+      },
+   },
+   events: {
+      async linkAccount({ user, account, profile }) {
+         // Account successfully linked
+         console.log(`Account ${account.provider} linked to user ${user.email}`);
+      },
+   },
    secret: process.env.NEXTAUTH_SECRET,
 };
 
