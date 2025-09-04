@@ -9,7 +9,6 @@ import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 import useRentModal from "@/app/hooks/useRentModal";
 import { useRouter } from "next/navigation";
-import { MdOutlineTravelExplore } from "react-icons/md";
 
 interface UserMenuProps {
    currentUser?: SafeUser | null;
@@ -37,29 +36,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       rentModal.onOpen();
    }, [currentUser, loginModal, rentModal]);
    
-   const onCreateItinerary = useCallback(() => {
-      if (!currentUser) {
-         return loginModal.onOpen();
-      }
-
-      router.push('/itineraries/create');
-   }, [currentUser, loginModal, router]);
    
    return (
       <div className="relative">
          <div className="flex flex-row items-center gap-3">
-            <div
-               onClick={onCreateItinerary}
-               className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer relative whitespace-nowrap"
-            >
-               <div className="flex items-center gap-1">
-                  <MdOutlineTravelExplore size={16} />
-                  <span>Create Itinerary</span>
-               </div>
-               <div className="absolute -top-2 -right-2 bg-rose-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
-                  NEW
-               </div>
-            </div>
             <div
                onClick={onRent}
                className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer whitespace-nowrap"
@@ -86,28 +66,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                               router.push("/trips");
                               setIsOpen(false);
                            }}
-                           label="My Trips"
-                        />
-                        <MenuItem
-                           onClick={() => {
-                              router.push("/itineraries");
-                              setIsOpen(false);
-                           }}
-                           label="My Itineraries"
-                        />
-                        <MenuItem
-                           onClick={() => {
-                              router.push("/itineraries/create");
-                              setIsOpen(false);
-                           }}
-                           label={
-                              <div className="flex items-center justify-between w-full">
-                                 <span>Create Itinerary</span>
-                                 <span className="bg-rose-500 text-white text-[9px] px-1.5 py-0.5 rounded-full font-bold">
-                                    NEW
-                                 </span>
-                              </div>
-                           }
+                           label="My Bookings"
                         />
                         <MenuItem
                            onClick={() => {
@@ -121,7 +80,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                               router.push("/reservations");
                               setIsOpen(false);
                            }}
-                           label="My Reservations"
+                           label="My Guests"
                         />
                         <MenuItem
                            onClick={() => {
