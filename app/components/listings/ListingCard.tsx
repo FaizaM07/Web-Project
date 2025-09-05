@@ -84,16 +84,28 @@ const ListingCard: React.FC<ListingCardProps> = ({
                   <HeartButton listingId={data.id} currentUser={currentUser} />
                </div>
             </div>
-            <div className="font-semibold text-lg">
+            <div className="font-semibold text-lg truncate">
                {data.city 
                   ? `${data.city}, ${location?.label}`
                   : location?.label
                }
             </div>
-            <div className="font-light text-neutral-500">{reservationDate || data.category}</div>
-            <div className="flex flex-row items-center gap-1">
-               <div className="font-semibold "> $ {price}</div>
-               {!reservation && <div className="font-light">night</div>}
+            
+            <div className="text-sm text-neutral-500 font-light">
+               {reservationDate || data.category}
+            </div>
+            
+            <div className="flex justify-between items-center mt-2">
+               <div className="flex flex-col">
+                  {reservation?.user?.name && (
+                     <span className="font-medium text-neutral-700 text-sm">{reservation.user.name}</span>
+                  )}
+               </div>
+               <div className="flex items-center gap-1">
+                  <span className="font-semibold text-lg">${price}</span>
+                  {!reservation && <span className="font-light text-neutral-500 text-sm">night</span>}
+                  {reservation && <span className="font-light text-neutral-500 text-sm">total</span>}
+               </div>
             </div>
             {onAction && actionLabel && (
                <div className="mt-2">
